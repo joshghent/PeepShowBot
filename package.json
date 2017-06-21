@@ -1,0 +1,22 @@
+{
+  "name": "peepshow-bot",
+  "version": "1.0.0",
+  "description": "A peep show quotes discord bot",
+  "main": "bot.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "peep",
+    "show",
+    "peepshow"
+  ],
+  "author": "Josh Ghent <me@joshghent.com> (https://joshghent.com)",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "11.1.0",
+    "node-opus": "0.2.6"
+  }
+}
