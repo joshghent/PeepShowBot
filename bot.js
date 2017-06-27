@@ -41,7 +41,7 @@ function initialize(client) {
 
       if (options.play === true) {
         if (options.voiceChannel) {
-          playAudio(options.voiceChannel, options.file, character);
+          playAudio(options.voiceChannel, options.file, character, textChannel);
         } else {
           textChannel.send('You have to be in a voice channel to do this.');
         }
@@ -74,7 +74,7 @@ function getRandomAudio(character) {
   return './audio/' + character + '/' + files[index];
 }
 
-function playAudio(voiceChannel, file, character) {
+function playAudio(voiceChannel, file, character, textChannel) {
   // check for permissions first
   if (!voiceChannel.permissionsFor(client.user.id).has("CONNECT")) {
     textChannel.send("You do not have permissions to join this channel.")

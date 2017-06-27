@@ -4,7 +4,8 @@
   "description": "A peep show quotes discord bot",
   "main": "bot.js",
   "scripts": {
-    "test": "npm test"
+    "test": "npm test",
+    "start": "node bot.js"
   },
   "keywords": [
     "discord",

@@ -3,6 +3,22 @@
 ## Add to your server
 https://discordapp.com/oauth2/authorize?&client_id=327223282489098241&scope=bot&permissions=0
 
+## Setup
+```bash
+  # Mac
+  brew install ffmpeg
+  # Linux
+  apt-get install ffmpeg
+
+  
+  # Then...
+  git clone git@github.com:joshghent/PeepShowBot.git
+  cd PeepShowBot
+  npm install
+
+  npm start
+```
+
 
 ## Commands
 ```
