@@ -17,8 +17,8 @@
   "author": "Josh Ghent <me@joshghent.com> (https://joshghent.com)",
   "license": "MIT",
   "dependencies": {
-    "discord.js": "11.1.0",
+    "discord.js": "11.4.2",
     "dotenv": "^6.0.0",
-    "node-opus": "0.2.6"
+    "node-opus": "0.3.0"
   }
 }
