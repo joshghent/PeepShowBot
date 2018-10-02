@@ -16,6 +16,8 @@ https://discordapp.com/oauth2/authorize?&client_id=327223282489098241&scope=bot&
   cd PeepShowBot
   npm install
 
+  Rename `sample.env` to `.env` file and add your token like `TOKEN={ADD_YOUR_DISCORD_TOKEN}`
+
   npm start
 ```
 
