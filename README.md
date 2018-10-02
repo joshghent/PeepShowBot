@@ -1,5 +1,7 @@
 # :speaking_head: Peep Show Discord Bot
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/joshghent/PeepShowBot.svg)](https://greenkeeper.io/)
+
 ## Add to your server
 https://discordapp.com/oauth2/authorize?&client_id=327223282489098241&scope=bot&permissions=0
 
