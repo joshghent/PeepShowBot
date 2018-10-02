@@ -1,9 +1,10 @@
+require('dotenv').config();
+
 const Discord = require('discord.js');
-const config = require('./config.js');
 const fs = require('fs');
 
 const client = new Discord.Client();
-const token = config.token;
+const token = process.env.TOKEN;
 
 client.login(token);
 
@@ -59,7 +60,7 @@ function getCharacter(message) {
 
   if (content.startsWith('!mark')) {
     character = 'mark';
-  } 
+  }
   else if (content.startsWith('!jeremy') || content.startsWith('!jez')) {
     character = 'jeremy';
   }
