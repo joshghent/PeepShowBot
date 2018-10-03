@@ -34,7 +34,7 @@ Above command will build a Docker image called `peepshowbot`.
 To run the image, use the command below:
 
 ```bash
-TOKEN='your_discord_token' docker run peepshowbot -e TOKEN 
+TOKEN='your_discord_token' docker run -e TOKEN peepshowbot
 ```
 
 ## Commands
