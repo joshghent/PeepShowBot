@@ -5,7 +5,8 @@
   "main": "bot.js",
   "scripts": {
     "test": "npm test",
-    "start": "node bot.js"
+    "start": "node bot.js",
+    "docker-build": "docker build -t peepshowbot ."
   },
   "keywords": [
     "discord",

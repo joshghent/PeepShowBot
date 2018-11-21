@@ -21,6 +21,21 @@ https://discordapp.com/oauth2/authorize?&client_id=327223282489098241&scope=bot&
   npm start
 ```
 
+## Build and run with Docker
+
+To build a Docker image, run:
+
+```bash
+npm run docker-build
+```
+
+Above command will build a Docker image called `peepshowbot`. 
+
+To run the image, use the command below:
+
+```bash
+TOKEN='your_discord_token' docker run -e TOKEN peepshowbot
+```
 
 ## Commands
 ```
@@ -31,3 +46,4 @@ https://discordapp.com/oauth2/authorize?&client_id=327223282489098241&scope=bot&
     -h --help   For help
     -s --sounds List all available sounds
 ```
+
