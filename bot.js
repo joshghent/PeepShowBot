@@ -9,14 +9,16 @@ const token = process.env.TOKEN;
 client.login(token);
 
 function initialize(client) {
+	/*
 	client.on('ready', () => {
 		// Wait 10 seconds after ready to ensure we're really good to go
 		setTimeout(function () {
 			console.log("Bot ready");
+			console.log(client.user.id);
 			client.user.setStatus('online');
 			client.user.setPresence({ game: { name: "Do ! and a character name. e.g., !mark" } })
 		}, 10000);
-	});
+	});*/
 
 	client.on('disconnect', closeEvent => {
 		if (closeEvent.code === 4005 || closeEvent.code === 4004) {
@@ -29,7 +31,9 @@ function initialize(client) {
 	client.on('message', message => {
 		const character = getCharacter(message);
 
-		if (character !== null) {
+
+		if (character) {
+			console.log(`Got character message for ${character}`);
 			const textChannel = message.channel;
 			const guild = message.guild;
 
@@ -37,8 +41,6 @@ function initialize(client) {
 			options.voiceChannel = message.member.voiceChannel;
 			options.play = true;
 			options.file = getRandomAudio(character);
-
-			let content = message.content.toLowerCase();
 
 			if (options.leave) {
 				let voiceConnection = client.voiceConnections.get(guild.id);
@@ -74,9 +76,9 @@ function getCharacter(message) {
 		'jeff'
 	];
 
-	for (let char in charactersList) {
+	for (let char of charactersList) {
 		if (content.startsWith(`!${char}`)) {
-			character = char;
+			return char;
 		}
 	}
 
@@ -84,8 +86,6 @@ function getCharacter(message) {
 	if (content.startsWith('!jez')) {
 		character = 'jeremy';
 	}
-
-
 
 	return character;
 }

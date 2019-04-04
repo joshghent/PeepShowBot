@@ -10,7 +10,7 @@ https://discordapp.com/oauth2/authorize?&client_id=327223282489098241&scope=bot&
   # Linux
   apt-get install ffmpeg
 
-  
+
   # Then...
   git clone git@github.com:joshghent/PeepShowBot.git
   cd PeepShowBot
@@ -29,12 +29,12 @@ To build a Docker image, run:
 npm run docker-build
 ```
 
-Above command will build a Docker image called `peepshowbot`. 
+Above command will build a Docker image called `peepshowbot`.
 
 To run the image, use the command below:
 
 ```bash
-TOKEN='your_discord_token' docker run -e TOKEN peepshowbot
+docker run -e TOKEN='your_discord_token' peepshowbot
 ```
 
 ## Commands
@@ -46,4 +46,3 @@ TOKEN='your_discord_token' docker run -e TOKEN peepshowbot
     -h --help   For help
     -s --sounds List all available sounds
 ```
-
