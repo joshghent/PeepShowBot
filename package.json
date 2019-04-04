@@ -1,25 +1,29 @@
 {
-  "name": "peepshow-bot",
-  "version": "1.0.0",
-  "description": "A peep show quotes discord bot",
-  "main": "bot.js",
-  "scripts": {
-    "test": "npm test",
-    "start": "node bot.js",
-    "docker-build": "docker build -t peepshowbot ."
-  },
-  "keywords": [
-    "discord",
-    "bot",
-    "peep",
-    "show",
-    "peepshow"
-  ],
-  "author": "Josh Ghent <me@joshghent.com> (https://joshghent.com)",
-  "license": "MIT",
-  "dependencies": {
-    "discord.js": "11.1.0",
-    "dotenv": "^6.0.0",
-    "node-opus": "0.2.6"
-  }
+	"name": "peepshow-bot",
+	"version": "1.0.0",
+	"description": "A peep show quotes discord bot",
+	"main": "bot.js",
+	"scripts": {
+		"test": "npm test",
+		"start": "node bot.js",
+		"docker-build": "docker build -t peepshowbot ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/joshghent/PeepShowBot"
+	},
+	"keywords": [
+		"discord",
+		"bot",
+		"peep",
+		"show",
+		"peepshow"
+	],
+	"author": "Josh Ghent <me@joshghent.com> (https://joshghent.com)",
+	"license": "MIT",
+	"dependencies": {
+		"discord.js": "11.4.2",
+		"dotenv": "^7.0.0",
+		"node-opus": "0.3.1"
+	}
 }
