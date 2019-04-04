@@ -5,20 +5,17 @@ const fs = require('fs');
 
 const client = new Discord.Client();
 const token = process.env.TOKEN;
+let isReady = true;
 
 client.login(token);
 
 function initialize(client) {
-	/*
 	client.on('ready', () => {
-		// Wait 10 seconds after ready to ensure we're really good to go
-		setTimeout(function () {
-			console.log("Bot ready");
-			console.log(client.user.id);
-			client.user.setStatus('online');
-			client.user.setPresence({ game: { name: "Do ! and a character name. e.g., !mark" } })
-		}, 10000);
-	});*/
+		console.log("Bot ready");
+		console.log(client.user.id);
+		client.user.setStatus('online');
+		client.user.setPresence({ game: { name: "Do ! and a character name. e.g., !mark" } })
+	});
 
 	client.on('disconnect', closeEvent => {
 		if (closeEvent.code === 4005 || closeEvent.code === 4004) {
@@ -28,11 +25,15 @@ function initialize(client) {
 		client.destroy().then(() => client.login(token));
 	});
 
+	client.on('error', err => {
+		console.log(err);
+	});
+
 	client.on('message', message => {
 		const character = getCharacter(message);
 
-
 		if (character) {
+			isReady = false;
 			console.log(`Got character message for ${character}`);
 			const textChannel = message.channel;
 			const guild = message.guild;
@@ -58,6 +59,8 @@ function initialize(client) {
 					textChannel.send('You have to be in a voice channel to do this.');
 				}
 			}
+
+			isReady = true;
 		}
 	});
 }
@@ -110,10 +113,16 @@ function playAudio(voiceChannel, file, character, textChannel) {
 
 	voiceChannel.join().then(connection => {
 		connection.playFile(file).on("end", () => {
-			connection.disconnect();
 			voiceChannel.leave();
 		});
 	}).catch(error => {
+		console.log(error);
 		textChannel.send(error.toString());
 	});
 }
+
+process.on('SIGINT', function () {
+	console.log("Caught interrupt signal");
+	client.user.setStatus("invisible");
+	process.exit();
+});
