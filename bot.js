@@ -9,89 +9,111 @@ const token = process.env.TOKEN;
 client.login(token);
 
 function initialize(client) {
-  client.on('disconnect', closeEvent => {
-    if (closeEvent.code === 4005 || closeEvent.code === 4004) {
-      return false;
-    }
+	client.on('ready', () => {
+		// Wait 10 seconds after ready to ensure we're really good to go
+		setTimeout(function () {
+			console.log("Bot ready");
+			client.user.setStatus('online');
+			client.user.setPresence({ game: { name: "Do ! and a character name. e.g., !mark" } })
+		}, 10000);
+	});
 
-    client.destroy().then(() => client.login(token));
-  });
+	client.on('disconnect', closeEvent => {
+		if (closeEvent.code === 4005 || closeEvent.code === 4004) {
+			return false;
+		}
 
-  client.on('message', message => {
-    const character = getCharacter(message);
+		client.destroy().then(() => client.login(token));
+	});
 
-    if (character !== null) {
-      const textChannel = message.channel;
-      const guild = message.guild;
+	client.on('message', message => {
+		const character = getCharacter(message);
 
-      let options = {};
-      options.voiceChannel = message.member.voiceChannel;
-      options.play = true;
-      options.file = getRandomAudio(character);
+		if (character !== null) {
+			const textChannel = message.channel;
+			const guild = message.guild;
 
-      let content = message.content.toLowerCase();
+			let options = {};
+			options.voiceChannel = message.member.voiceChannel;
+			options.play = true;
+			options.file = getRandomAudio(character);
 
-      if (options.leave) {
-        let voiceConnection = client.voiceConnections.get(guild.id);
+			let content = message.content.toLowerCase();
 
-        if (voiceConnection) {
-          voiceConnection.disconnect();
-          voiceConnection.channel.leave();
-        }
-      }
+			if (options.leave) {
+				let voiceConnection = client.voiceConnections.get(guild.id);
 
-      if (options.play === true) {
-        if (options.voiceChannel) {
-          playAudio(options.voiceChannel, options.file, character, textChannel);
-        } else {
-          textChannel.send('You have to be in a voice channel to do this.');
-        }
-      }
-    }
-  });
+				if (voiceConnection) {
+					voiceConnection.disconnect();
+					voiceConnection.channel.leave();
+				}
+			}
+
+			if (options.play === true) {
+				if (options.voiceChannel) {
+					playAudio(options.voiceChannel, options.file, character, textChannel);
+				} else {
+					textChannel.send('You have to be in a voice channel to do this.');
+				}
+			}
+		}
+	});
 }
 
 initialize(client);
 
 function getCharacter(message) {
-  const content = message.content.toLowerCase();
+	const content = message.content.toLowerCase();
 
-  let character = null;
+	let character = null;
+	const charactersList = [
+		'mark',
+		'superhans',
+		'jeremy',
+		'dobby',
+		'jeff'
+	];
 
-  if (content.startsWith('!mark')) {
-    character = 'mark';
-  }
-  else if (content.startsWith('!jeremy') || content.startsWith('!jez')) {
-    character = 'jeremy';
-  }
+	for (let char in charactersList) {
+		if (content.startsWith(`!${char}`)) {
+			character = char;
+		}
+	}
 
-  return character;
+	// Add alias of Jez for Jeremy
+	if (content.startsWith('!jez')) {
+		character = 'jeremy';
+	}
+
+
+
+	return character;
 }
 
 function getRandomAudio(character) {
-  const files = fs.readdirSync('./audio/' + character);
-  const index = Math.floor(Math.random() * files.length);
+	const files = fs.readdirSync('./audio/' + character);
+	const index = Math.floor(Math.random() * files.length);
 
-  return './audio/' + character + '/' + files[index];
+	return './audio/' + character + '/' + files[index];
 }
 
 function playAudio(voiceChannel, file, character, textChannel) {
-  // check for permissions first
-  if (!voiceChannel.permissionsFor(client.user.id).has("CONNECT")) {
-    textChannel.send("You do not have permissions to join this channel.")
-    return;
-  };
-  if (!voiceChannel.permissionsFor(client.user.id).has("SPEAK")) {
-    textChannel.send("You do not have permission to speak in this channel")
-    return;
-  };
+	// check for permissions first
+	if (!voiceChannel.permissionsFor(client.user.id).has("CONNECT")) {
+		textChannel.send("You do not have permissions to join this channel.")
+		return;
+	};
+	if (!voiceChannel.permissionsFor(client.user.id).has("SPEAK")) {
+		textChannel.send("You do not have permission to speak in this channel")
+		return;
+	};
 
-  voiceChannel.join().then(connection => {
-    connection.playFile(file).on("end", () => {
-      connection.disconnect();
-      voiceChannel.leave();
-    });
-  }).catch(error => {
-    textChannel.send(error.toString());
-  });
+	voiceChannel.join().then(connection => {
+		connection.playFile(file).on("end", () => {
+			connection.disconnect();
+			voiceChannel.leave();
+		});
+	}).catch(error => {
+		textChannel.send(error.toString());
+	});
 }
